@@ -1,69 +1,57 @@
 import React from "react";
 import * as Select from "@radix-ui/react-select";
 import { styled } from "@stitches/react";
-import { violet, mauve, blackA } from "@radix-ui/colors";
+import { violet, mauve, blackA, tomato } from "@radix-ui/colors";
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
+import useCountries from "../utils/useCountries";
 
-export const SelectField = () => (
-  <Fieldset>
-    <Label>Select a country</Label>
-    <Select.Root>
-      <SelectTrigger aria-label="Countries">
-        <Select.Value placeholder="Select a fruit…" />
-        <SelectIcon>
-          <ChevronDownIcon />
-        </SelectIcon>
-      </SelectTrigger>
-      <Select.Portal>
-        <SelectContent>
-          <SelectScrollUpButton>
-            <ChevronUpIcon />
-          </SelectScrollUpButton>
-          <SelectViewport>
-            <Select.Group>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="blueberry">Blueberry</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
-            </Select.Group>
-
-            <SelectSeparator />
-
-            <Select.Group>
-              <SelectLabel>Vegetables</SelectLabel>
-              <SelectItem value="aubergine">Aubergine</SelectItem>
-              <SelectItem value="broccoli">Broccoli</SelectItem>
-              <SelectItem value="carrot" disabled>
-                Carrot
-              </SelectItem>
-              <SelectItem value="courgette">Courgette</SelectItem>
-              <SelectItem value="leek">leek</SelectItem>
-            </Select.Group>
-
-            <SelectSeparator />
-
-            <Select.Group>
-              <SelectLabel>Meat</SelectLabel>
-              <SelectItem value="beef">Beef</SelectItem>
-              <SelectItem value="chicken">Chicken</SelectItem>
-              <SelectItem value="lamb">Lamb</SelectItem>
-              <SelectItem value="pork">Pork</SelectItem>
-            </Select.Group>
-          </SelectViewport>
-          <SelectScrollDownButton>
-            <ChevronDownIcon />
-          </SelectScrollDownButton>
-        </SelectContent>
-      </Select.Portal>
-    </Select.Root>
-  </Fieldset>
-);
+export const SelectField = () => {
+  const { countriesList } = useCountries();
+  if (countriesList) {
+    return (
+      <Fieldset>
+        <Label>Select a country</Label>
+        <Select.Root>
+          <SelectTrigger aria-label="Countries">
+            <Select.Value placeholder="Select a country" />
+            <SelectIcon>
+              <ChevronDownIcon />
+            </SelectIcon>
+          </SelectTrigger>
+          <Select.Portal>
+            <SelectContent>
+              <SelectScrollUpButton>
+                <ChevronUpIcon />
+              </SelectScrollUpButton>
+              <SelectViewport>
+                <Select.Group>
+                  {countriesList.map((country, idx) => (
+                    <SelectItem key={idx} value={country.name}>
+                      {country.name}
+                    </SelectItem>
+                  ))}
+                </Select.Group>
+              </SelectViewport>
+              <SelectScrollDownButton>
+                <ChevronDownIcon />
+              </SelectScrollDownButton>
+            </SelectContent>
+          </Select.Portal>
+        </Select.Root>
+      </Fieldset>
+    );
+  } else {
+    return (
+      <pre style={{ color: tomato.tomato10 }}>
+        Unexpected error occured while fetching countries list!
+      </pre>
+    );
+  }
+};
 
 const Fieldset = styled("fieldset", {
   all: "unset",
@@ -147,19 +135,6 @@ const StyledItem = styled(Select.Item, {
     backgroundColor: violet.violet9,
     color: violet.violet1,
   },
-});
-
-const SelectLabel = styled(Select.Label, {
-  padding: "0 25px",
-  fontSize: 12,
-  lineHeight: "25px",
-  color: mauve.mauve11,
-});
-
-const SelectSeparator = styled(Select.Separator, {
-  height: 1,
-  backgroundColor: violet.violet6,
-  margin: 5,
 });
 
 const StyledItemIndicator = styled(Select.ItemIndicator, {

@@ -39,16 +39,30 @@ function InputField({
   id,
   placeholder,
   autoFocus,
+  onChange,
+  value,
+  type,
 }: {
   label: string;
   id: string;
   placeholder?: string;
   autoFocus?: boolean;
+  onChange: any;
+  value: any;
+  type?: "text" | "number";
 }) {
   return (
     <Fieldset>
       <Label htmlFor="name">{label}</Label>
-      <Input id={id} placeholder={placeholder} autoFocus={autoFocus} />
+      <Input
+        onChange={onChange}
+        value={value}
+        id={id}
+        name={id}
+        placeholder={placeholder}
+        type={type}
+        autoFocus={autoFocus}
+      />
     </Fieldset>
   );
 }

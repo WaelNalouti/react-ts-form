@@ -1,5 +1,5 @@
 import { styled } from "@stitches/react";
-import { green } from "@radix-ui/colors";
+import { green, mauve } from "@radix-ui/colors";
 
 const Button = styled("button", {
   all: "unset",
@@ -23,13 +23,26 @@ const FormButton = ({
   type,
   text,
   style,
+  onClick,
+  disabled,
 }: {
   type: "button" | "submit";
   text: string;
   style?: {};
+  onClick?: () => void;
+  disabled?: boolean;
 }) => {
   return (
-    <Button type={type} style={style}>
+    <Button
+      type={type}
+      style={
+        disabled
+          ? { backgroundColor: mauve.mauve6, cursor: "not-allowed", ...style }
+          : { ...style }
+      }
+      onClick={onClick}
+      disabled={disabled}
+    >
       {text}
     </Button>
   );
