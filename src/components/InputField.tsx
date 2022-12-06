@@ -1,5 +1,5 @@
 import { styled } from "@stitches/react";
-import { violet } from "@radix-ui/colors";
+import { tomato, violet } from "@radix-ui/colors";
 
 const Fieldset = styled("fieldset", {
   all: "unset",
@@ -10,6 +10,7 @@ const Fieldset = styled("fieldset", {
 
 const Label = styled("label", {
   fontSize: 15,
+  fontWeight: 600,
   color: violet.violet11,
   textAlign: "right",
 });
@@ -42,6 +43,8 @@ function InputField({
   onChange,
   value,
   type,
+  error,
+  name,
 }: {
   label: string;
   id: string;
@@ -50,6 +53,8 @@ function InputField({
   onChange: any;
   value: any;
   type?: "text" | "number";
+  error: boolean;
+  name: any;
 }) {
   return (
     <Fieldset>
@@ -58,10 +63,13 @@ function InputField({
         onChange={onChange}
         value={value}
         id={id}
-        name={id}
+        name={name}
         placeholder={placeholder}
         type={type}
         autoFocus={autoFocus}
+        style={
+          error ? { borderColor: tomato.tomato10, color: tomato.tomato10 } : {}
+        }
       />
     </Fieldset>
   );

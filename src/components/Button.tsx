@@ -37,7 +37,13 @@ const FormButton = ({
       type={type}
       style={
         disabled
-          ? { backgroundColor: mauve.mauve6, cursor: "not-allowed", ...style }
+          ? {
+              backgroundColor: mauve.mauve6,
+              cursor: "not-allowed",
+              color: mauve.mauve10,
+              opacity: 0.5,
+              ...style,
+            }
           : { ...style }
       }
       onClick={onClick}

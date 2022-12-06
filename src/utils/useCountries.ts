@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 
-export interface ICountry {
-  name: string;
-  flag: string;
-  independent: boolean;
-}
+// Used a public free api for fetching countries list
+// Find more about this api here: https://restcountries.com
 
-const useCountries = (): { countriesList: ICountry[] | null } => {
+const useCountries = () => {
   const [countries, setCountries] = useState<ICountry[] | null>([]);
 
   useEffect(() => {
